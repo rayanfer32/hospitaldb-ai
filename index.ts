@@ -6,8 +6,9 @@ import readline from "readline-sync";
 import { ConversationManager } from "./conversation";
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY!;
-const GEMINI_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent";
+// const MODEL = "gemini-2.5-pro";
+const MODEL = "gemini-2.5-flash";
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 const db = new Database("hospital.db");
 
@@ -49,7 +50,10 @@ async function askGemini(prompt: string): Promise<string> {
   return text.trim();
 }
 
-async function generateSQL(conversation: ConversationManager, naturalQuery: string): Promise<string> {
+async function generateSQL(
+  conversation: ConversationManager,
+  naturalQuery: string
+): Promise<string> {
   const basePrompt = `You are an assistant that converts natural language to SQL queries.
 Use this database schema:
 
@@ -90,12 +94,12 @@ function removeMarkdownCodeBlock(str: string) {
 
 async function main() {
   const conversation = new ConversationManager(5);
-  
+
   while (true) {
     const question = readline.question(
       '\nAsk your question (or type "exit" to quit, "clear" to reset conversation): '
     );
-    
+
     if (question.toLowerCase() === "exit") break;
     if (question.toLowerCase() === "clear") {
       conversation.clear();
@@ -104,25 +108,28 @@ async function main() {
     }
 
     try {
-      conversation.addMessage('user', question);
-      
+      conversation.addMessage("user", question);
+
       const sql = await generateSQL(conversation, question);
       const cleanedSql = removeMarkdownCodeBlock(sql);
       console.log(`\n🔍 SQL Generated:\n${cleanedSql}`);
-      
+
       const stmt = db.prepare(cleanedSql);
       const rows = stmt.all();
 
       conversation.updateContext({
         previousQuery: question,
         previousSQL: cleanedSql,
-        previousResults: rows
+        previousResults: rows,
       });
 
       const summary = await describeResults(conversation, question, rows);
       console.log(`\n📝 Explanation:\n${summary}`);
-      
-      conversation.addMessage('assistant', `SQL: ${cleanedSql}\nExplanation: ${summary}`);
+
+      conversation.addMessage(
+        "assistant",
+        `SQL: ${cleanedSql}\nExplanation: ${summary}`
+      );
     } catch (err: any) {
       console.error("\n❌ Error:", err.message);
     }
