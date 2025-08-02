@@ -40,7 +40,7 @@ CREATE TABLE bills(
 
 CREATE TABLE appointments(
 	app_id 	INTEGER PRIMARY KEY,
-	appoINTEGERment VARCHAR(100) NOT NULL,
+	appointment VARCHAR(100) NOT NULL,
 	p_id INTEGER  REFERENCES patients(p_id),
 	doc_id INTEGER  REFERENCES doctors(doc_id),
 	app_date VARCHAR(20),
@@ -181,25 +181,25 @@ INSERT INTO bills(p_id, service, amount, bill_date)
 	VALUES(2004, 'Test',1000, '03/03/2019');
 
 --DUMMY DATA FOR APPOINTMENTS --
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'Mariage Counsilling', 2006, 1004, '05/05/2018','Rescheduled to 05/06/2018');
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'Mariage Counsilling', 2006, 1004, '05/06/2018','Done');
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'HIV/AIDS Counsilling', 2010, 1009, '05/07/2018','Done');
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'Surgery Counsilling', 2009, 1004, '06/07/2018','Pending');
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'Mariage Counsilling', 2006, 1004, '07/07/2018','Done');
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'Sex Therapy', 2008, 1009, '08/07/2018','Done');
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'Stress Managemnet', 2004, 1004, '10/07/2018','Done');
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'Relaxation Therapy', 2002, 1009, '02/01/2019','Done');
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'Diet Counsilling', 2001, 1004, '11/08/2019','Pending');
-INSERT INTO appointments( appoINTEGERment, p_id, doc_id, app_date, app_status)
+INSERT INTO appointments( appointment, p_id, doc_id, app_date, app_status)
 	VALUES( 'Healthy Living Counsilling', 2009, 1004, '11/08/2019','Done');
 
 --DUMMY DATA FOR IN_OUT --
